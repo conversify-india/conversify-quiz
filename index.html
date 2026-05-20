@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversify India — Reviewer Training Quiz</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --green-deep: #0a4a35;
+      --green-mid: #1a7a55;
+      --green-bright: #25c480;
+      --green-light: #d4f5e7;
+      --green-pale: #f0fdf6;
+      --amber: #f59e0b;
+      --amber-light: #fef3c7;
+      --red: #ef4444;
+      --red-light: #fee2e2;
+      --text-primary: #0f1f17;
+      --text-secondary: #4a6b5a;
+      --text-muted: #8aab98;
+      --border: #c8e6d8;
+      --surface: #ffffff;
+      --bg: #f4faf7;
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--green-deep);
+      padding: 48px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 120%, #1a7a5530 0%, transparent 70%);
+    }
+
+    .hero-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 100px;
+      padding: 6px 16px 6px 8px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .hero-logo span {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--green-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green-deep);
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 5vw, 42px);
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .hero h1 em {
+      color: var(--green-bright);
+      font-style: normal;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 480px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .video-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .video-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .video-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--green-bright);
+    }
+
+    /* ── MAIN CONTAINER ── */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    /* ── INTRO CARD ── */
+    .intro-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .intro-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      background: var(--green-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 28px;
+    }
+
+    .intro-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .intro-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 400px;
+      margin: 0 auto 24px;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .stat-pill {
+      background: var(--green-pale);
+      border: 1px solid var(--green-light);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: var(--green-mid);
+      font-weight: 500;
+    }
+
+    .start-btn {
+      background: var(--green-mid);
+      color: #fff;
+      border: none;
+      padding: 14px 36px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .start-btn:hover {
+      background: var(--green-deep);
+      transform: translateY(-1px);
+    }
+
+    /* ── QUIZ SHELL ── */
+    .quiz-shell {
+      display: none;
+      animation: fadeUp 0.35s ease both;
+    }
+
+    /* progress header */
+    .quiz-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .q-counter {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .q-counter strong {
+      color: var(--text-primary);
+      font-size: 15px;
+    }
+
+    .score-chips {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .chip.correct {
+      background: var(--green-light);
+      color: var(--green-deep);
+    }
+
+    .chip.wrong {
+      background: var(--red-light);
+      color: #991b1b;
+    }
+
+    .progress-track {
+      height: 6px;
+      background: var(--green-light);
+      border-radius: 3px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--green-bright);
+      border-radius: 3px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* question card */
+    .q-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 16px;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .q-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-pale);
+      border: 1px solid var(--green-light);
+      color: var(--green-mid);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .q-tag svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--green-mid);
+    }
+
+    .q-text {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.55;
+      margin-bottom: 24px;
+    }
+
+    /* options */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .opt-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      border-color: var(--green-mid);
+      background: var(--green-pale);
+    }
+
+    .opt-btn:disabled {
+      cursor: default;
+    }
+
+    .opt-letter {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-top: 1px;
+      transition: all 0.15s;
+    }
+
+    .opt-btn.correct {
+      border-color: var(--green-bright);
+      background: var(--green-pale);
+    }
+
+    .opt-btn.correct .opt-letter {
+      background: var(--green-bright);
+      border-color: var(--green-bright);
+      color: var(--green-deep);
+    }
+
+    .opt-btn.wrong {
+      border-color: var(--red);
+      background: var(--red-light);
+    }
+
+    .opt-btn.wrong .opt-letter {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+    }
+
+    .opt-btn.reveal {
+      border-color: var(--green-bright);
+      background: var(--green-pale);
+    }
+
+    .opt-btn.reveal .opt-letter {
+      background: var(--green-bright);
+      border-color: var(--green-bright);
+      color: var(--green-deep);
+    }
+
+    /* feedback */
+    .feedback {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .feedback.show {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .feedback.correct {
+      background: var(--green-pale);
+      border: 1px solid var(--green-light);
+      color: var(--green-deep);
+    }
+
+    .feedback.wrong {
+      background: var(--red-light);
+      border: 1px solid #fca5a5;
+      color: #7f1d1d;
+    }
+
+    .feedback-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* next btn */
+    .next-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+
+    .next-btn {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-mid);
+      color: #fff;
+      border: none;
+      padding: 11px 24px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .next-btn:hover {
+      background: var(--green-deep);
+      transform: translateY(-1px);
+    }
+
+    .next-btn.show {
+      display: flex;
+    }
+
+    .next-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: #fff;
+    }
+
+    /* ── RESULTS ── */
+    .results-shell {
+      display: none;
+      animation: fadeUp 0.35s ease both;
+    }
+
+    .results-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .results-top {
+      background: var(--green-deep);
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .results-top::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 100%, #25c48020, transparent);
+    }
+
+    .score-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid var(--green-bright);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      position: relative;
+    }
+
+    .score-pct {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--green-bright);
+      line-height: 1;
+    }
+
+    .score-pct-label {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .results-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .results-sub {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      position: relative;
+    }
+
+    .pass-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 6px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .pass-badge.pass {
+      background: var(--green-bright);
+      color: var(--green-deep);
+    }
+
+    .pass-badge.fail {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .results-body {
+      padding: 24px 28px;
+    }
+
+    .breakdown-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    .breakdown-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--bg);
+      font-size: 13px;
+    }
+
+    .breakdown-row:last-child {
+      border-bottom: none;
+    }
+
+    .br-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .br-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--bg);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .br-section {
+      color: var(--text-secondary);
+    }
+
+    .br-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    .br-badge.ok {
+      background: var(--green-light);
+      color: var(--green-deep);
+    }
+
+    .br-badge.no {
+      background: var(--red-light);
+      color: #991b1b;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn-retry {
+      flex: 1;
+      min-width: 140px;
+      background: var(--green-mid);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-retry:hover {
+      background: var(--green-deep);
+    }
+
+    .btn-video {
+      flex: 1;
+      min-width: 140px;
+      background: transparent;
+      color: var(--green-mid);
+      border: 1.5px solid var(--green-mid);
+      padding: 12px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-video:hover {
+      background: var(--green-pale);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      .hero {
+        padding: 36px 16px 44px;
+      }
+
+      .container {
+        padding: 24px 14px 48px;
+      }
+
+      .q-card {
+        padding: 20px;
+      }
+
+      .results-body {
+        padding: 20px;
+      }
+
+      .results-top {
+        padding: 32px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-logo">
+      <span>C</span>
+      Conversify India
+    </div>
+    <h1>Reviewer Training<br><em>Knowledge Check</em></h1>
+    <p>Test your understanding of the YouTube content moderation workflow before you start reviewing.</p>
+    <a href="https://drive.google.com/file/d/1A2G75SrNshcOAhbywXsXiAH9HMMqygbl/view" target="_blank" class="video-btn">
+      <svg viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      Watch the training video first
+    </a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="container">
+
+    <!-- INTRO -->
+    <div class="intro-card" id="intro-card">
+      <div class="intro-icon">📋</div>
+      <h2>Ready to test yourself?</h2>
+      <p>This quiz covers all 9 sections of the reviewer training video. Answer carefully — you need 70% to pass.</p>
+      <div class="stats-row">
+        <span class="stat-pill">10 questions</span>
+        <span class="stat-pill">Multiple choice</span>
+        <span class="stat-pill">Pass at 70%</span>
+        <span class="stat-pill">Instant feedback</span>
+      </div>
+      <button class="start-btn" onclick="startQuiz()">Start Quiz →</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-shell" id="quiz-shell">
+      <div class="quiz-header">
+        <div class="q-counter">Question <strong id="q-num">1</strong> of <strong>10</strong></div>
+        <div class="score-chips">
+          <div class="chip correct">✓ <span id="chip-correct">0</span></div>
+          <div class="chip wrong">✗ <span id="chip-wrong">0</span></div>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+      </div>
+      <div class="q-card" id="q-card">
+        <div class="q-tag" id="q-tag">
+          <svg viewBox="0 0 24 24">
+            <path d="M17 3H7a2 2 0 00-2 2v16l7-3 7 3V5a2 2 0 00-2-2z" />
+          </svg>
+          <span id="q-section"></span>
+        </div>
+        <div class="q-text" id="q-text"></div>
+        <div class="options" id="q-options"></div>
+        <div class="feedback" id="q-feedback">
+          <span class="feedback-icon" id="fb-icon"></span>
+          <span id="fb-text"></span>
+        </div>
+      </div>
+      <div class="next-row">
+        <button class="next-btn" id="next-btn" onclick="nextQ()">
+          <span id="next-label">Next question</span>
+          <svg viewBox="0 0 24 24">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-shell" id="results-shell">
+      <div class="results-card">
+        <div class="results-top">
+          <div class="score-circle">
+            <div class="score-pct" id="res-pct">0%</div>
+            <div class="score-pct-label">score</div>
+          </div>
+          <div class="results-title" id="res-title">Quiz complete!</div>
+          <div class="results-sub" id="res-sub"></div>
+          <div class="pass-badge" id="res-badge"></div>
+        </div>
+        <div class="results-body">
+          <div class="breakdown-title">Question breakdown</div>
+          <div id="breakdown-list"></div>
+          <div class="results-actions">
+            <button class="btn-retry" onclick="restartQuiz()">↺ Try again</button>
+            <a href="https://drive.google.com/file/d/1A2G75SrNshcOAhbywXsXiAH9HMMqygbl/view" target="_blank"
+              class="btn-video">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              Rewatch video
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const ALL_QUESTIONS = [
+      { section: "Purpose & mission", q: "What is your primary role as a internal reviewer in this workflow?", opts: ["Add OST, comments, review speech and metadata", "Transcribe and translate what is spoken so YouTube can make removal decisions", "Directly report creators to YouTube for policy violations", "Edit or censor the video content before review"], ans: 0, exp: "Your job is to identify and mention comments, OST and review speech and metadata. You are a not translator/transcriber." },
+      { section: "Google Docs template", q: "What does the yellow highlighted timestamp rows indicate in your Google Doc?", opts: ["Rows that have already been completed by another reviewer", "Rows that contain errors needing correction", "The segments currently assigned to you to fill in", "Indicates how much work is assigned to which translator"], ans: 3, exp: "Yellow highlighting marks your active/assigned segments. Always start from the topmost highlighted row and work downward." },
+      { section: "Template structure", q: "What does WfW stand for and what does it require?", opts: ["Word-for-Web — a summary suitable for online publication", "Word-for-Word — every single spoken word must be captured, nothing paraphrased", "Written Feedback — your opinion on the content", "Wide-Format — a full layout of all video elements"], ans: 1, exp: "WfW means Word-for-Word. You must capture every single word spoken, including filler words. Summarizing is not allowed." },
+      { section: "Template structure", q: "Each row in the timestamp column covers how much video time?", opts: ["30 seconds", "2 minutes", "1 minute", "5 minutes"], ans: 2, exp: "Each row in the template covers exactly 1 minute of video, e.g. 00:00:00–00:01:00." },
+      { section: "Split-screen workflow", q: "What is the recommended screen setup while doing your review task?", opts: ["Watch the video fully first, then fill the doc from memory", "Google Doc on the left, YouTube video on the right — both visible simultaneously", "Forward the file to client directly for his review", "Transcribe from audio only, no need to watch the video"], ans: 1, exp: "The recommended setup is a split-screen with the Google Doc on the left and the YouTube video on the right, both visible at all times." },
+      { section: "Filling WfW translation", q: "How should you label an unknown speaker in the WfW column?", opts: ["Leave the speaker field blank", "Write 'Unknown'", "Use 'Male Speaker 1' or 'Female Speaker 1' or Female in red dress(appearance) or speaker on the left(position)", "Use 'Speaker 1', 'Speaker 2', etc."], ans: 2, exp: "If you cannot identify the speaker by name, label them as 'Male Speaker 1', Female in red dress(appearance), speaker on the left corner(position) or 'Female Speaker 1'. Use real names only when confirmed." },
+      { section: "OST column", q: "Which of the following belongs in the OST (On-Screen Text) column?", opts: ["Your personal notes about the video content", "The spoken dialogue of the presenter", "Any running text, banner, poster etc visible on screen", "The Wikipedia link for a mentioned politician"], ans: 2, exp: "OST = On-Screen Text. This includes brand logos, running texts, pop-up text and any other text visible on the video frame." },
+      { section: "Notes column", q: "What type of content goes in the Notes column?", opts: ["A summary of what happened in the video segment", "Annotations like slurs, slangs, vulgar words, etc. used in video related to the content", "Your personal opinion on whether the content is harmful", "Timestamps for when specific speakers appear"], ans: 1, exp: "The Notes column is for context and reference links " },
+      { section: "Supervisor comments", q: "Who leaves review instructions in the Google Doc sidebar, and what must you do with them?", opts: ["YouTube's automated system — you can ignore minor ones", "Your supervisor (e.g. ABC) — you must address all comments before submitting", "Other reviewers — respond only if you disagree", "No one — the sidebar is for your own notes only"], ans: 1, exp: "Your supervisor leaves comments with specific instructions such as adding thumbnails or identifying speakers. All comments must be resolved before you submit." },
+      { section: "Quality standard", q: "Which combination makes a fully complete, high-quality submission?", opts: ["WfW translation only — OST and Notes are optional extras", "WfW translation + OST of visible text + context links in Notes", "A summary of the video + speaker names only", "OST and Notes only — WfW is auto-generated by the platform"], ans: 1, exp: "A complete submission requires all three: every spoken word in WfW, every on-screen text in OST, and relevant reference links in Notes." }
+    ];
+
+    const LETTERS = ['A', 'B', 'C', 'D'];
+    let questions = [], qIndex = 0, score = 0, answers = [], answered = false;
+
+    function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
+    function startQuiz() {
+      questions = shuffle(ALL_QUESTIONS);
+      qIndex = 0; score = 0; answers = []; answered = false;
+      document.getElementById('intro-card').style.display = 'none';
+      document.getElementById('results-shell').style.display = 'none';
+      document.getElementById('quiz-shell').style.display = 'block';
+      document.getElementById('quiz-shell').style.animation = 'none';
+      void document.getElementById('quiz-shell').offsetWidth;
+      document.getElementById('quiz-shell').style.animation = 'fadeUp 0.35s ease both';
+      renderQ();
+    }
+
+    function renderQ() {
+      answered = false;
+      const q = questions[qIndex];
+      const pct = Math.round((qIndex / questions.length) * 100);
+
+      document.getElementById('q-num').textContent = qIndex + 1;
+      document.getElementById('chip-correct').textContent = score;
+      document.getElementById('chip-wrong').textContent = qIndex - score;
+      document.getElementById('prog-fill').style.width = pct + '%';
+      document.getElementById('q-section').textContent = q.section;
+      document.getElementById('q-text').textContent = q.q;
+      document.getElementById('next-label').textContent = qIndex + 1 < questions.length ? 'Next question' : 'See results';
+
+      const opts = document.getElementById('q-options');
+      opts.innerHTML = q.opts.map((o, i) =>
+        `<button class="opt-btn" id="opt-${i}" onclick="selectAns(${i})">
+      <div class="opt-letter">${LETTERS[i]}</div>${o}
+    </button>`
+      ).join('');
+
+      const fb = document.getElementById('q-feedback');
+      fb.className = 'feedback';
+      document.getElementById('next-btn').className = 'next-btn';
+
+      const card = document.getElementById('q-card');
+      card.style.animation = 'none';
+      void card.offsetWidth;
+      card.style.animation = 'fadeUp 0.3s ease both';
+    }
+
+    function selectAns(chosen) {
+      if (answered) return;
+      answered = true;
+      const q = questions[qIndex];
+      const correct = chosen === q.ans;
+      if (correct) score++;
+      answers.push({ section: q.section, correct, qText: q.q });
+
+      document.querySelectorAll('.opt-btn').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.ans) btn.classList.add(correct && i === chosen ? 'correct' : 'reveal');
+        if (i === chosen && !correct) btn.classList.add('wrong');
+      });
+
+      const fb = document.getElementById('q-feedback');
+      fb.className = 'feedback ' + (correct ? 'correct' : 'wrong') + ' show';
+      document.getElementById('fb-icon').textContent = correct ? '✓' : '✗';
+      document.getElementById('fb-text').textContent = q.exp;
+
+      document.getElementById('next-btn').className = 'next-btn show';
+      document.getElementById('chip-correct').textContent = score;
+      document.getElementById('chip-wrong').textContent = (qIndex + 1) - score;
+    }
+
+    function nextQ() {
+      qIndex++;
+      if (qIndex >= questions.length) { showResults(); return; }
+      renderQ();
+    }
+
+    function showResults() {
+      document.getElementById('quiz-shell').style.display = 'none';
+      const rs = document.getElementById('results-shell');
+      rs.style.display = 'block';
+      rs.style.animation = 'none';
+      void rs.offsetWidth;
+      rs.style.animation = 'fadeUp 0.35s ease both';
+
+      const pct = Math.round((score / questions.length) * 100);
+      const pass = pct >= 70;
+
+      document.getElementById('res-pct').textContent = pct + '%';
+      document.getElementById('res-title').textContent = pass ? 'Great work!' : 'Keep practising!';
+      document.getElementById('res-sub').textContent = score + ' out of ' + questions.length + ' correct';
+      const badge = document.getElementById('res-badge');
+      badge.className = 'pass-badge ' + (pass ? 'pass' : 'fail');
+      badge.textContent = pass ? '✓ Passed — ready to review!' : '✗ Score below 70% — rewatch & retry';
+
+      document.getElementById('breakdown-list').innerHTML = answers.map((a, i) =>
+        `<div class="breakdown-row">
+      <div class="br-left">
+        <div class="br-num">${i + 1}</div>
+        <div class="br-section">${a.section}</div>
+      </div>
+      <span class="br-badge ${a.correct ? 'ok' : 'no'}">${a.correct ? '✓ Correct' : '✗ Wrong'}</span>
+    </div>`
+      ).join('');
+    }
+
+    function restartQuiz() { startQuiz(); }
+  </script>
+</body>
+
+</html>
