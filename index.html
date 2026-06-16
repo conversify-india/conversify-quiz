@@ -893,11 +893,82 @@
 
     const LETTERS = ['A', 'B', 'C', 'D'];
     const TIME_LIMIT = 10 * 60; // 10 minutes in seconds
+    const STORAGE_KEY = 'conversify_quiz_state';
     let questions = [], qIndex = 0, score = 0, answers = [], answered = false, reviewerName = "";
     let timeLeft = TIME_LIMIT, timerInterval = null, timeTaken = 0;
 
     function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
 
+    /* ── STATE PERSISTENCE ── */
+    function saveState(currentAnswered = false, currentChosen = -1) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          reviewerName, questions, qIndex, score, answers,
+          timeLeft, timeTaken, currentAnswered, currentChosen
+        }));
+      } catch (e) {}
+    }
+
+    function clearState() {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    }
+
+    function restoreState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        const s = JSON.parse(raw);
+        if (!s.questions || !s.questions.length) return false;
+
+        reviewerName = s.reviewerName;
+        questions    = s.questions;
+        qIndex       = s.qIndex;
+        score        = s.score;
+        answers      = s.answers;
+        timeLeft     = s.timeLeft;
+        timeTaken    = s.timeTaken;
+
+        document.getElementById('intro-card').style.display = 'none';
+        document.getElementById('results-shell').style.display = 'none';
+        const qs = document.getElementById('quiz-shell');
+        qs.style.display = 'block';
+
+        document.getElementById('timer-chip').className = 'chip timer';
+        updateTimerDisplay();
+        timerInterval = setInterval(tickTimer, 1000);
+        renderQ();
+
+        // Re-apply answer UI if the question was already answered before refresh
+        if (s.currentAnswered && s.currentChosen >= 0) {
+          answered = true;
+          applyAnswerUI(s.currentChosen);
+        }
+
+        // Show a subtle resume banner
+        showResumeBanner();
+        return true;
+      } catch (e) {
+        clearState();
+        return false;
+      }
+    }
+
+    function showResumeBanner() {
+      const existing = document.getElementById('resume-banner');
+      if (existing) return;
+      const banner = document.createElement('div');
+      banner.id = 'resume-banner';
+      banner.style.cssText = `
+        background:#fef3c7; border:1px solid #f59e0b; color:#92400e;
+        border-radius:8px; padding:10px 16px; font-size:13px; font-weight:500;
+        margin-bottom:16px; display:flex; align-items:center; gap:8px;
+      `;
+      banner.innerHTML = '↩ Session restored — resuming from where you left off.';
+      document.getElementById('quiz-shell').prepend(banner);
+      setTimeout(() => banner.remove(), 4000);
+    }
+
+    /* ── QUIZ FLOW ── */
     function startQuiz() {
       const nameInput = document.getElementById('reviewer-name');
       reviewerName = nameInput.value.trim();
@@ -923,6 +994,7 @@
       void document.getElementById('quiz-shell').offsetWidth;
       document.getElementById('quiz-shell').style.animation = 'fadeUp 0.35s ease both';
       renderQ();
+      saveState();
     }
 
     function updateTimerDisplay() {
@@ -938,12 +1010,14 @@
       if (timeLeft <= 0) {
         clearInterval(timerInterval);
         timeTaken = TIME_LIMIT;
+        clearState();
         showResults(true);
         return;
       }
       timeLeft--;
       timeTaken = TIME_LIMIT - timeLeft;
       updateTimerDisplay();
+      saveState(answered);
     }
 
     function renderQ() {
@@ -976,6 +1050,23 @@
       card.style.animation = 'fadeUp 0.3s ease both';
     }
 
+    function applyAnswerUI(chosen) {
+      const q = questions[qIndex];
+      const correct = chosen === q.ans;
+      document.querySelectorAll('.opt-btn').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.ans) btn.classList.add(correct && i === chosen ? 'correct' : 'reveal');
+        if (i === chosen && !correct) btn.classList.add('wrong');
+      });
+      const fb = document.getElementById('q-feedback');
+      fb.className = 'feedback ' + (correct ? 'correct' : 'wrong') + ' show';
+      document.getElementById('fb-icon').textContent = correct ? '✓' : '✗';
+      document.getElementById('fb-text').textContent = q.exp;
+      document.getElementById('next-btn').className = 'next-btn show';
+      document.getElementById('chip-correct').textContent = score;
+      document.getElementById('chip-wrong').textContent = (qIndex + 1) - score;
+    }
+
     function selectAns(chosen) {
       if (answered) return;
       answered = true;
@@ -983,27 +1074,15 @@
       const correct = chosen === q.ans;
       if (correct) score++;
       answers.push({ section: q.section, correct, qText: q.q });
-
-      document.querySelectorAll('.opt-btn').forEach((btn, i) => {
-        btn.disabled = true;
-        if (i === q.ans) btn.classList.add(correct && i === chosen ? 'correct' : 'reveal');
-        if (i === chosen && !correct) btn.classList.add('wrong');
-      });
-
-      const fb = document.getElementById('q-feedback');
-      fb.className = 'feedback ' + (correct ? 'correct' : 'wrong') + ' show';
-      document.getElementById('fb-icon').textContent = correct ? '✓' : '✗';
-      document.getElementById('fb-text').textContent = q.exp;
-
-      document.getElementById('next-btn').className = 'next-btn show';
-      document.getElementById('chip-correct').textContent = score;
-      document.getElementById('chip-wrong').textContent = (qIndex + 1) - score;
+      applyAnswerUI(chosen);
+      saveState(true, chosen);
     }
 
     function nextQ() {
       qIndex++;
-      if (qIndex >= questions.length) { showResults(false); return; }
+      if (qIndex >= questions.length) { clearState(); showResults(false); return; }
       renderQ();
+      saveState();
     }
 
     function showResults(timeUp = false) {
@@ -1045,16 +1124,12 @@
     </div>`
       ).join('');
 
-      // Send results to Google Sheets via Apps Script Web App
-      // Replace the URL below with your actual Google Apps Script Web App URL!
       const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzu2IgO77KXQFmyIgkJlIHI9djLmwOO0rhy2EgL_lh21S3fTk0LiSIASgsmvcwa_4J7/exec";
       if (SCRIPT_URL !== "YOUR_WEB_APP_URL_HERE") {
         fetch(SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: reviewerName,
             score: score,
@@ -1069,10 +1144,14 @@
     }
 
     function restartQuiz() {
+      clearState();
       document.getElementById('intro-card').style.display = 'block';
       document.getElementById('results-shell').style.display = 'none';
       document.getElementById('quiz-shell').style.display = 'none';
     }
+
+    // On page load — restore session if one exists
+    document.addEventListener('DOMContentLoaded', () => { restoreState(); });
   </script>
 </body>
 
