@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Q&A — Download</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4faf7; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+    .card { background: #fff; border-radius: 14px; padding: 40px; max-width: 560px; width: 100%; box-shadow: 0 4px 24px rgba(0,0,0,0.08); text-align: center; }
+    h1 { font-size: 22px; color: #0a4a35; margin-bottom: 8px; }
+    p { color: #4a6b5a; font-size: 14px; margin-bottom: 28px; line-height: 1.6; }
+    .btn { background: #1a7a55; color: #fff; border: none; padding: 14px 36px; border-radius: 100px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn:hover { background: #0a4a35; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>📄 Quiz Questions & Answers</h1>
+    <p>Download the full list of all 10 quiz questions with options and correct answers in Word format.</p>
+    <button class="btn" onclick="downloadDoc()">⬇ Download .doc</button>
+  </div>
+
+  <script>
+    function downloadDoc() {
+      const content = `
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Calibri, Arial, sans-serif; margin: 40px; color: #111; }
+    h1 { color: #0a4a35; font-size: 22pt; border-bottom: 2px solid #25c480; padding-bottom: 8px; margin-bottom: 4px; }
+    h2 { color: #0a4a35; font-size: 13pt; margin-bottom: 2px; }
+    .meta { font-size: 10pt; color: #4a6b5a; margin-bottom: 14px; font-style: italic; }
+    .subtitle { font-size: 11pt; color: #4a6b5a; margin-bottom: 28px; }
+    .question-block { margin-bottom: 28px; padding: 14px 18px; border-left: 4px solid #25c480; background: #f0fdf6; border-radius: 4px; }
+    .q-number { font-size: 10pt; font-weight: bold; color: #1a7a55; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .q-section { font-size: 9pt; color: #8aab98; margin-bottom: 6px; }
+    .q-text { font-size: 12pt; font-weight: bold; color: #0f1f17; margin-bottom: 10px; }
+    .option { font-size: 11pt; padding: 3px 0; color: #333; }
+    .option.correct { color: #0a4a35; font-weight: bold; }
+    .correct-mark { color: #25c480; font-weight: bold; }
+    .explanation { font-size: 10pt; color: #4a6b5a; margin-top: 10px; padding-top: 8px; border-top: 1px solid #c8e6d8; font-style: italic; }
+  </style>
+</head>
+<body>
+  <h1>Conversify India — Reviewer Training Quiz</h1>
+  <div class="subtitle">Full Question Bank with Answer Key &amp; Explanations</div>
+
+  <div class="question-block">
+    <div class="q-number">Question 1 of 10</div>
+    <div class="q-section">Section: Purpose &amp; mission</div>
+    <div class="q-text">What is your primary role as an internal reviewer in this workflow?</div>
+    <div class="option correct"><span class="correct-mark">✓ A.</span> Add OST, comments, review speech and metadata</div>
+    <div class="option">B. Transcribe and translate what is spoken so YouTube can make removal decisions</div>
+    <div class="option">C. Directly report creators to YouTube for policy violations</div>
+    <div class="option">D. Edit or censor the video content before review</div>
+    <div class="explanation">Your job is to identify and mention comments, OST and review speech and metadata. You are not a translator/transcriber.</div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-number">Question 2 of 10</div>
+    <div class="q-section">Section: Google Docs template</div>
+    <div class="q-text">What does the yellow highlighted timestamp rows indicate in your Google Doc?</div>
+    <div class="option">A. Rows that have already been completed by another reviewer</div>
+    <div class="option">B. Rows that contain errors needing correction</div>
+    <div class="option">C. The segments currently assigned to you to fill in</div>
+    <div class="option correct"><span class="correct-mark">✓ D.</span> Indicates how much work is assigned to which translator</div>
+    <div class="explanation">Yellow highlighting marks your active/assigned segments. Always start from the topmost highlighted row and work downward.</div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-number">Question 3 of 10</div>
+    <div class="q-section">Section: Template structure</div>
+    <div class="q-text">What does WfW stand for and what does it require?</div>
+    <div class="option">A. Word-for-Web — a summary suitable for online publication</div>
+    <div class="option correct"><span class="correct-mark">✓ B.</span> Word-for-Word — every single spoken word must be captured, nothing paraphrased</div>
+    <div class="option">C. Written Feedback — your opinion on the content</div>
+    <div class="option">D. Wide-Format — a full layout of all video elements</div>
+    <div class="explanation">WfW means Word-for-Word. You must capture every single word spoken, including filler words. Summarizing is not allowed.</div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-number">Question 4 of 10</div>
+    <div class="q-section">Section: Template structure</div>
+    <div class="q-text">Each row in the timestamp column covers how much video time?</div>
+    <div class="option">A. 30 seconds</div>
+    <div class="option">B. 2 minutes</div>
+    <div class="option correct"><span class="correct-mark">✓ C.</span> 1 minute</div>
+    <div class="option">D. 5 minutes</div>
+    <div class="explanation">Each row in the template covers exactly 1 minute of video, e.g. 00:00:00–00:01:00.</div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-number">Question 5 of 10</div>
+    <div class="q-section">Section: Split-screen workflow</div>
+    <div class="q-text">What is the recommended screen setup while doing your review task?</div>
+    <div class="option">A. Watch the video fully first, then fill the doc from memory</div>
+    <div class="option correct"><span class="correct-mark">✓ B.</span> Google Doc on the left, YouTube video on the right — both visible simultaneously</div>
+    <div class="option">C. Forward the file to client directly for his review</div>
+    <div class="option">D. Transcribe from audio only, no need to watch the video</div>
+    <div class="explanation">The recommended setup is a split-screen with the Google Doc on the left and the YouTube video on the right, both visible at all times.</div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-number">Question 6 of 10</div>
+    <div class="q-section">Section: Filling WfW translation</div>
+    <div class="q-text">How should you label an unknown speaker in the WfW column?</div>
+    <div class="option">A. Leave the speaker field blank</div>
+    <div class="option">B. Write 'Unknown'</div>
+    <div class="option correct"><span class="correct-mark">✓ C.</span> Use 'Male Speaker 1' or 'Female Speaker 1' or Female in red dress (appearance) or speaker on the left (position)</div>
+    <div class="option">D. Use 'Speaker 1', 'Speaker 2', etc.</div>
+    <div class="explanation">If you cannot identify the speaker by name, label them as 'Male Speaker 1', Female in red dress (appearance), speaker on the left corner (position) or 'Female Speaker 1'. Use real names only when confirmed.</div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-number">Question 7 of 10</div>
+    <div class="q-section">Section: OST column</div>
+    <div class="q-text">Which of the following belongs in the OST (On-Screen Text) column?</div>
+    <div class="option">A. Your personal notes about the video content</div>
+    <div class="option">B. The spoken dialogue of the presenter</div>
+    <div class="option correct"><span class="correct-mark">✓ C.</span> Any running text, banner, poster etc visible on screen</div>
+    <div class="option">D. The Wikipedia link for a mentioned politician</div>
+    <div class="explanation">OST = On-Screen Text. This includes brand logos, running texts, pop-up text and any other text visible on the video frame.</div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-number">Question 8 of 10</div>
+    <div class="q-section">Section: Notes column</div>
+    <div class="q-text">What type of content goes in the Notes column?</div>
+    <div class="option">A. A summary of what happened in the video segment</div>
+    <div class="option correct"><span class="correct-mark">✓ B.</span> Annotations like slurs, slangs, vulgar words, etc. used in video related to the content</div>
+    <div class="option">C. Your personal opinion on whether the content is harmful</div>
+    <div class="option">D. Timestamps for when specific speakers appear</div>
+    <div class="explanation">The Notes column is for context and reference links.</div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-number">Question 9 of 10</div>
+    <div class="q-section">Section: Supervisor comments</div>
+    <div class="q-text">What is the format for additional language that needs to be followed while internal review?</div>
+    <div class="option">A. Foreign language: 0:16</div>
+    <div class="option">B. Additional language : Arabic - 0:16</div>
+    <div class="option correct"><span class="correct-mark">✓ C.</span> Unidentified language or Arabic language: 0:00 - 0:16</div>
+    <div class="option">D. Your own notes only</div>
+    <div class="explanation">The correct format to be followed is Unidentified language (if unable to identify) or Arabic language (if language is Arabic): 0:00 - 0:16.</div>
+  </div>
+
+  <div class="question-block">
+    <div class="q-number">Question 10 of 10</div>
+    <div class="q-section">Section: Quality standard</div>
+    <div class="q-text">Which combination makes a fully complete, high-quality submission?</div>
+    <div class="option">A. WfW translation only — OST and Notes are optional extras</div>
+    <div class="option correct"><span class="correct-mark">✓ B.</span> WfW translation + OST of visible text + context links in Notes</div>
+    <div class="option">C. A summary of the video + speaker names only</div>
+    <div class="option">D. OST and Notes only — WfW is auto-generated by the platform</div>
+    <div class="explanation">A complete submission requires all three: every spoken word in WfW, every on-screen text in OST, and relevant reference links in Notes.</div>
+  </div>
+
+</body>
+</html>`;
+
+      const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Conversify-Quiz-Questions-Answers.doc';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
