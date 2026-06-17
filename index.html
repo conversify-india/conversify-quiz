@@ -906,11 +906,11 @@
           reviewerName, questions, qIndex, score, answers,
           timeLeft, timeTaken, currentAnswered, currentChosen
         }));
-      } catch (e) {}
+      } catch (e) { }
     }
 
     function clearState() {
-      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) { }
     }
 
     function restoreState() {
@@ -921,12 +921,12 @@
         if (!s.questions || !s.questions.length) return false;
 
         reviewerName = s.reviewerName;
-        questions    = s.questions;
-        qIndex       = s.qIndex;
-        score        = s.score;
-        answers      = s.answers;
-        timeLeft     = s.timeLeft;
-        timeTaken    = s.timeTaken;
+        questions = s.questions;
+        qIndex = s.qIndex;
+        score = s.score;
+        answers = s.answers;
+        timeLeft = s.timeLeft;
+        timeTaken = s.timeTaken;
 
         document.getElementById('intro-card').style.display = 'none';
         document.getElementById('results-shell').style.display = 'none';
